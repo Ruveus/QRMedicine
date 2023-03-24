@@ -6,6 +6,12 @@ import 'dart:io' show Platform;
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_medicine/model/developer_settings.dart';
+import 'package:qr_medicine/model/medicine.dart';
+import 'package:qr_medicine/screens/const.dart';
+import 'package:qr_medicine/screens/medicine_show.dart';
+import 'package:qr_medicine/viewmodel/user_model.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -229,23 +235,34 @@ class _AppState extends State<App> {
 
   Future<void> _scan() async {
     try {
-      final result = await BarcodeScanner.scan(
-        options: ScanOptions(
-          strings: {
-            'cancel': _cancelController.text,
-            'flash_on': _flashOnController.text,
-            'flash_off': _flashOffController.text,
-          },
-          restrictFormat: selectedFormats,
-          useCamera: _selectedCamera,
-          autoEnableFlash: _autoEnableFlash,
-          android: AndroidOptions(
-            aspectTolerance: _aspectTolerance,
-            useAutoFocus: _useAutoFocus,
+      String medicineId = "";
+      if (!DeveloperSettings.test) {
+        ScanResult scanResult = await BarcodeScanner.scan(
+          options: ScanOptions(
+            strings: {
+              'cancel': _cancelController.text,
+              'flash_on': _flashOnController.text,
+              'flash_off': _flashOffController.text,
+            },
+            restrictFormat: selectedFormats,
+            useCamera: _selectedCamera,
+            autoEnableFlash: _autoEnableFlash,
+            android: AndroidOptions(
+              aspectTolerance: _aspectTolerance,
+              useAutoFocus: _useAutoFocus,
+            ),
           ),
-        ),
-      );
-      setState(() => scanResult = result);
+        );
+        medicineId = scanResult.rawContent;
+      } else {
+        medicineId = "UraRBqhintFq0ozC96n4";
+      }
+      if (medicineId.isEmpty) {
+        // Todo Qr okuma hata Dialog
+        print("Qr okuma hata");
+      } else {
+        getMedicine(medicineId);
+      }
     } on PlatformException catch (e) {
       setState(() {
         scanResult = ScanResult(
@@ -255,6 +272,21 @@ class _AppState extends State<App> {
               : 'Unknown error: $e',
         );
       });
+    }
+  }
+
+  Future getMedicine(String medicineId) async {
+    try {
+      Medicine? medicine = await Provider.of<UserModel>(context, listen: false)
+          .getMedicine(medicineId);
+      if (medicine != null) {
+        goToPage(context, MedicineShow(medicine: medicine));
+      } else {
+        throw Exception("Bu ilaç veritabanımızda bulunamadı");
+      }
+    } catch (e) {
+      // Todo Hata Dialog
+      print("Hata: $e");
     }
   }
 }

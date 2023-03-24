@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:qr_medicine/extensions/context_extension.dart';
+import 'package:qr_medicine/model/medicine.dart';
 
 class MedicineShow extends StatefulWidget {
-  const MedicineShow({super.key});
+  final Medicine medicine;
+  const MedicineShow({super.key, required this.medicine});
 
   @override
   State<MedicineShow> createState() => _MedicineShowState();
