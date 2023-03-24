@@ -18,14 +18,14 @@ class _MedicineShowState extends State<MedicineShow> {
               onPressed: () => Navigator.pop(context),
               icon: FaIcon(
                 FontAwesomeIcons.xmark,
-                color: Colors.blue,
+                color: Colors.blue.shade200,
               )),
         ],
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
       body: Column(
-        children: [],
+        children: [Image.asset("assets/medicine_one.png")],
       ),
     );
   }
