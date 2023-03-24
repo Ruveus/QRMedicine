@@ -30,6 +30,21 @@ class Medicine {
     }
   }
 
+  String typeToStr() {
+    switch (type!) {
+      case Type.pill:
+        return "Hap";
+      case Type.capsule:
+        return "Kapsül";
+      case Type.gel:
+        return "Jel";
+      case Type.tablet:
+        return "Tablet";
+      case Type.unknown:
+        return "Bilinmeyen";
+    }
+  }
+
   @override
   String toString() {
     return 'Medicine{activeIngredient: $activeIngredient, '

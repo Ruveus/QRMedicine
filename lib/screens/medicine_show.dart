@@ -12,6 +12,14 @@ class MedicineShow extends StatefulWidget {
 }
 
 class _MedicineShowState extends State<MedicineShow> {
+  late Medicine medicine;
+
+  @override
+  void initState() {
+    super.initState();
+    medicine = widget.medicine;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,26 +42,26 @@ class _MedicineShowState extends State<MedicineShow> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset(
-              "assets/medicine_one.png",
+              pathConverter(),
               width: context.dynamicWidth(0.3),
             ),
             Text(
-              "İlaç Adı",
+              "İlaç Adı: ${medicine.name}",
               style: Theme.of(context).textTheme.headline3,
             ),
             Text(
-              "İlaç Türü .",
+              "İlaç Türü: ${medicine.typeToStr()}",
               style: Theme.of(context).textTheme.subtitle1,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ilacBilgiContainer(context,
+                medicineInfoContainer(context,
                     icon: FontAwesomeIcons.kitMedical,
                     baslik: "2.5 Mg",
                     altBaslik: "Günlük Dozaj",
                     renk: Colors.amber),
-                ilacBilgiContainer(context,
+                medicineInfoContainer(context,
                     icon: FontAwesomeIcons.clock,
                     baslik: "2.5 Mg",
                     altBaslik: "Günlük Dozaj",
@@ -93,7 +101,30 @@ class _MedicineShowState extends State<MedicineShow> {
     );
   }
 
-  Container ilacBilgiContainer(BuildContext context,
+  String pathConverter() {
+    String path = "assets/medicine_";
+    switch (medicine.type!) {
+      case Type.pill:
+        path += "one";
+        break;
+      case Type.capsule:
+        path += "two";
+        break;
+      case Type.gel:
+        path += "one";
+        break;
+      case Type.tablet:
+        path += "one";
+        break;
+      case Type.unknown:
+        path += "one";
+        break;
+    }
+    path += ".png";
+    return path;
+  }
+
+  Container medicineInfoContainer(BuildContext context,
       {IconData icon = Icons.abc,
       String baslik = "Baslik",
       String altBaslik = "AltBaslik",
