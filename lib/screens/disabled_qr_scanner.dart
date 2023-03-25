@@ -256,7 +256,7 @@ class _AppState extends State<App> {
         );
         medicineId = scanResult.rawContent;
       } else {
-        medicineId = "UraRBqhintFq0ozC96n4";
+        medicineId = "w43dlsq7tGnirGCjmynD";
       }
       if (medicineId.isEmpty) {
         // Todo Qr okuma hata Dialog

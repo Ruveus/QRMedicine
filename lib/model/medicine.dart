@@ -6,6 +6,7 @@ class Medicine {
   String? name;
   String? what;
   Type? type;
+  String? appliedTo;
 
   Medicine.fromFirebase(Map<String, dynamic> map) {
     activeIngredient = map["activeIngredient"];
@@ -13,6 +14,7 @@ class Medicine {
     name = map["name"];
     what = map["what"];
     type = convertType(map["type"]);
+    appliedTo = map["appliedTo"];
   }
 
   Type convertType(int typeNo) {
@@ -30,24 +32,9 @@ class Medicine {
     }
   }
 
-  String typeToStr() {
-    switch (type!) {
-      case Type.pill:
-        return "Hap";
-      case Type.capsule:
-        return "Kapsül";
-      case Type.gel:
-        return "Jel";
-      case Type.tablet:
-        return "Tablet";
-      case Type.unknown:
-        return "Bilinmeyen";
-    }
-  }
-
   @override
   String toString() {
     return 'Medicine{activeIngredient: $activeIngredient, '
-        'excipients: $excipients, name: $name, what: $what}';
+        'excipients: $excipients, name: $name, what: $what, appliedTo: $appliedTo}';
   }
 }

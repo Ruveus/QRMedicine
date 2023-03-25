@@ -52,7 +52,7 @@ class _MedicineShowState extends State<MedicineShow> {
               ),
             ),
             Text(
-              "İlaç Türü: ${medicine.typeToStr()}",
+              "İlaç Türü: ${convertToFirstLaterUpperCase(medicine.type!.name)}",
               style: Theme.of(context).textTheme.subtitle1,
             ),
             Row(
@@ -125,6 +125,9 @@ class _MedicineShowState extends State<MedicineShow> {
     path += ".png";
     return path;
   }
+
+  String convertToFirstLaterUpperCase(String string) =>
+      string[0].toUpperCase() + string.substring(1);
 
   Container medicineInfoContainer(BuildContext context,
       {IconData icon = Icons.abc,
