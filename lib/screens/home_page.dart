@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:qr_medicine/extensions/context_extension.dart';
-import 'package:qr_medicine/screens/disabled_qr_scanner.dart';
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/developer_settings.dart';
 import 'package:qr_medicine/screens/const.dart';
 import 'package:qr_medicine/screens/medicine_show.dart';
@@ -96,15 +94,11 @@ class _HomePageState extends State<HomePage> {
         getMedicine(medicineId);
       }
     } on PlatformException catch (e) {
-      setState(() {
-        scanResult = ScanResult(
-          type: ResultType.Error,
-          rawContent: e.code == BarcodeScanner.cameraAccessDenied
+      snackBarGoster(
+          context,
+          e.code == BarcodeScanner.cameraAccessDenied
               ? 'Camera cant access!'
-              : 'Unknown error: $e',
-        );
-        snackBarGoster(context, "Camera Permission Denied!");
-      });
+              : 'Unknown error: $e');
     }
   }
 
@@ -121,15 +115,14 @@ class _HomePageState extends State<HomePage> {
       Medicine? medicine = await Provider.of<UserModel>(context, listen: false)
           .getMedicine(medicineId);
       if (medicine != null) {
+        // ignore: use_build_context_synchronously
         goToPage(context, MedicineShow(medicine: medicine));
       } else {
-        snackBarGoster(context, "Bu ilaç veritabanımızda bulunamadı");
-        throw Exception("Bu ilaç veritabanımızda bulunamadı");
+        // ignore: use_build_context_synchronously
+        snackBarGoster(context, "This drug was not found in our database");
       }
     } catch (e) {
-      // Todo Hata Dialog
-      snackBarGoster(context, "Hata Kodu : \n$e");
-      print("Error: $e");
+      snackBarGoster(context, "Error Code : \n$e");
     }
   }
 }
