@@ -45,9 +45,11 @@ class _MedicineShowState extends State<MedicineShow> {
               pathConverter(),
               width: context.dynamicWidth(0.3),
             ),
-            Text(
-              "İlaç Adı: ${medicine.name}",
-              style: Theme.of(context).textTheme.headline3,
+            FittedBox(
+              child: Text(
+                "İlaç Adı: \n${medicine.name}",
+                style: Theme.of(context).textTheme.headline5,
+              ),
             ),
             Text(
               "İlaç Türü: ${medicine.typeToStr()}",
@@ -63,8 +65,8 @@ class _MedicineShowState extends State<MedicineShow> {
                     renk: Colors.amber),
                 medicineInfoContainer(context,
                     icon: FontAwesomeIcons.clock,
-                    baslik: "2.5 Mg",
-                    altBaslik: "Günlük Dozaj",
+                    baslik: "2 Tane ",
+                    altBaslik: "Günlük",
                     renk: Colors.purpleAccent),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_medicine/screens/home_page.dart';
 import 'package:qr_medicine/viewmodel/user_model.dart';
@@ -10,6 +11,16 @@ import 'locator.dart';
 Future main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
+
+  //System UI Transparent
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+
+  //Vertical Phone
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }

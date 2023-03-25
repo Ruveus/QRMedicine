@@ -7,6 +7,7 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_medicine/components/snackbar_show.dart';
 import 'package:qr_medicine/model/developer_settings.dart';
 import 'package:qr_medicine/model/medicine.dart';
 import 'package:qr_medicine/screens/const.dart';
@@ -259,6 +260,7 @@ class _AppState extends State<App> {
       }
       if (medicineId.isEmpty) {
         // Todo Qr okuma hata Dialog
+        snackBarGoster(context, "QR Okuma Hatası");
         print("Qr okuma hata");
       } else {
         getMedicine(medicineId);
@@ -282,6 +284,7 @@ class _AppState extends State<App> {
       if (medicine != null) {
         goToPage(context, MedicineShow(medicine: medicine));
       } else {
+        snackBarGoster(context, "Bu ilaç veritabanımızda bulunamadı");
         throw Exception("Bu ilaç veritabanımızda bulunamadı");
       }
     } catch (e) {
