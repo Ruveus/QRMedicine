@@ -1,20 +1,20 @@
 enum Type { pill, capsule, gel, tablet, unknown }
 
 class Medicine {
-  String? activeIngredient;
-  String? excipients;
   String? name;
   String? what;
   Type? type;
   String? appliedTo;
+  String? howToUse;
+  String? sideEffects;
 
   Medicine.fromFirebase(Map<String, dynamic> map) {
-    activeIngredient = map["activeIngredient"];
-    excipients = map["excipients"];
     name = map["name"];
     what = map["what"];
     type = convertType(map["type"]);
     appliedTo = map["appliedTo"];
+    howToUse = map["howToUse"];
+    sideEffects = map["sideEffects"];
   }
 
   Type convertType(int typeNo) {
@@ -34,7 +34,7 @@ class Medicine {
 
   @override
   String toString() {
-    return 'Medicine{activeIngredient: $activeIngredient, '
-        'excipients: $excipients, name: $name, what: $what, appliedTo: $appliedTo}';
+    return 'Medicine{name: $name, what: $what, type: $type, '
+        'appliedTo: $appliedTo, howToUse: $howToUse, sideEffects: $sideEffects}';
   }
 }

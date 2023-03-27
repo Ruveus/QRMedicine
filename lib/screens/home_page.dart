@@ -1,15 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
 import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/developer_settings.dart';
-import 'package:qr_medicine/screens/const.dart';
-import 'package:qr_medicine/screens/medicine_show.dart';
 
 import '../components/snackbar_show.dart';
 import '../model/medicine.dart';
 import '../viewmodel/user_model.dart';
+import 'const.dart';
+import 'medicine_show.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -85,10 +86,9 @@ class _HomePageState extends State<HomePage> {
           medicineId = scanResult.rawContent;
         });
       } else {
-        medicineId = "UraRBqhintFq0ozC96n4";
+        medicineId = "w43dlsq7tGnirGCjmynD";
       }
       if (medicineId.isEmpty) {
-        // ignore: use_build_context_synchronously
         snackBarGoster(context, "QR cant read it");
       } else {
         getMedicine(medicineId);
@@ -115,10 +115,8 @@ class _HomePageState extends State<HomePage> {
       Medicine? medicine = await Provider.of<UserModel>(context, listen: false)
           .getMedicine(medicineId);
       if (medicine != null) {
-        // ignore: use_build_context_synchronously
         goToPage(context, MedicineShow(medicine: medicine));
       } else {
-        // ignore: use_build_context_synchronously
         snackBarGoster(context, "This drug was not found in our database");
       }
     } catch (e) {
