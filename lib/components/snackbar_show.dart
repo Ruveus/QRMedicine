@@ -6,5 +6,5 @@ ScaffoldFeatureController snackBarGoster(BuildContext context, message) {
       backgroundColor: Colors.white,
       content: Text(message,
           style: const TextStyle(
-              color: Colors.blue, fontWeight: FontWeight.bold))));
+              color: Colors.black, fontWeight: FontWeight.bold))));
 }

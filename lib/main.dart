@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_medicine/screens/home_page.dart';
+import 'package:qr_medicine/screens/medicine_show_t.dart';
 import 'package:qr_medicine/viewmodel/user_model.dart';
 
 import 'firebase_options.dart';
@@ -35,9 +36,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          scaffoldBackgroundColor: Colors.transparent,
+          fontFamily: 'Geometr706',
           primarySwatch: Colors.blue,
         ),
-        home: const HomePage(),
+        home: const MedicineShowT(),
       ),
     );
   }

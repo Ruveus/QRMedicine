@@ -3,6 +3,8 @@ import 'package:barcode_scan2/barcode_scan2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:qr_medicine/constants/my_colors.dart';
+import 'package:qr_medicine/constants/my_decorations.dart';
 import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/developer_settings.dart';
 
@@ -19,7 +21,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with MyColors, MyDecorations {
   ScanResult? scanResult;
   final double _aspectTolerance = 0.00;
   final bool _useAutoFocus = true;
@@ -27,50 +29,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Welcome"),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: Icon(
-                color: Colors.blue,
-                Icons.qr_code_rounded,
-                size: context.dynamicHeight(0.2),
+      body: Container(
+        decoration: scaffoldContainerDecoration,
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Center(
+                    child: Image.asset(
+                  "assets/qr_icon.png",
+                  width: context.dynamicHeight(0.4),
+                )),
               ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: _scan,
-                  //() => goToPage(context, App()),
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ))),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8),
-                    child: Text(
-                      "Scan!",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(color: Colors.white),
+              Expanded(
+                flex: 4,
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: TextButton(
+                        onPressed: _scan,
+                        //() => goToPage(context, App()),
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 6),
+                          child: Text(
+                            "Search!",
+                            style:
+                                Theme.of(context).textTheme.headline6?.copyWith(
+                                      color: Colors.black,
+                                    ),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
