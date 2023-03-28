@@ -6,7 +6,8 @@ import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/medicine.dart';
 
 class MedicineShowT extends StatefulWidget {
-  const MedicineShowT({super.key});
+  final Medicine medicine;
+  const MedicineShowT({super.key, required this.medicine});
 
   @override
   State<MedicineShowT> createState() => _MedicineShowTState();
@@ -14,12 +15,15 @@ class MedicineShowT extends StatefulWidget {
 
 class _MedicineShowTState extends State<MedicineShowT>
     with MyColors, MyDecorations {
+  double sizedBoxHeight = 10;
+
+  late Medicine medicine;
+
   @override
   void initState() {
     super.initState();
+    medicine = widget.medicine;
   }
-
-  double sizedBoxHeight = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +49,7 @@ class _MedicineShowTState extends State<MedicineShowT>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                "assets/medicine_one.png",
-                //pathConverter(),
+                pathConverter(),
                 width: context.dynamicWidth(0.3),
               ),
               SizedBox(
@@ -54,7 +57,7 @@ class _MedicineShowTState extends State<MedicineShowT>
               ),
               FittedBox(
                 child: Text(
-                  "${"medicine.name"}",
+                  medicine.name!,
                   style: Theme.of(context)
                       .textTheme
                       .headline6
@@ -62,7 +65,7 @@ class _MedicineShowTState extends State<MedicineShowT>
                 ),
               ),
               Text(
-                "İlaç Türü: ${convertToFirstLaterUpperCase("medicine.type!.name")}",
+                "İlaç Türü: ${convertToFirstLaterUpperCase(medicine.type!.name)}",
                 style: Theme.of(context)
                     .textTheme
                     .subtitle2
@@ -102,7 +105,7 @@ class _MedicineShowTState extends State<MedicineShowT>
                           ?.copyWith(color: textColor),
                     ),
                     Text(
-                      """Each of the CORASPIN enteric-coated tablets contains 300 mg of an active substance called acetylsalicylic acid. Acetylsalicylic acid shows its effect by preventing the aggregation of clotting cells called platelets. Because of this feature, it is used in various heart diseases. """,
+                      medicine.what!,
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -119,7 +122,7 @@ class _MedicineShowTState extends State<MedicineShowT>
                           ?.copyWith(color: textColor),
                     ),
                     Text(
-                      """"Take the tablets orally with some water, preferably before meals.CORASPIN is designed for long-term use. Your doctor should decide on the duration of your treatment.""",
+                      medicine.howToUse!,
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -136,7 +139,7 @@ class _MedicineShowTState extends State<MedicineShowT>
                           ?.copyWith(color: textColor),
                     ),
                     Text(
-                      """"Common cold, nasal congestion, Skin reactions (itching, hives, edema), Anaphylactic shock (Immediate hypersensitivity reaction)""",
+                      medicine.sideEffects!,
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -145,15 +148,15 @@ class _MedicineShowTState extends State<MedicineShowT>
                     SizedBox(
                       height: sizedBoxHeight,
                     ),
-                    myCustomExpansionTile(context, "More Detail", "I dunno"),
+                    myCustomExpansionTile(
+                        context,
+                        "Things to consider before using the ${medicine.getJustName()}",
+                        "I dunno"),
                     SizedBox(
                       height: sizedBoxHeight,
                     ),
-                    myCustomExpansionTile(context, "More Detail", "I dunno"),
-                    SizedBox(
-                      height: sizedBoxHeight,
-                    ),
-                    myCustomExpansionTile(context, "More Detail", "I dunno"),
+                    myCustomExpansionTile(context,
+                        "Storage of the ${medicine.getJustName()}", "I dunno"),
                   ],
                 ),
               )
@@ -164,7 +167,8 @@ class _MedicineShowTState extends State<MedicineShowT>
     );
   }
 
-  ExpansionTile myCustomExpansionTile(BuildContext context, baslik, altBaslik) {
+  ExpansionTile myCustomExpansionTile(
+      BuildContext context, String title, subTitle) {
     return ExpansionTile(
       childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
       tilePadding: EdgeInsets.zero,
@@ -174,13 +178,13 @@ class _MedicineShowTState extends State<MedicineShowT>
       textColor: textColor,
       trailing: const Icon(Icons.add),
       title: Text(
-        baslik,
+        title,
         style:
             Theme.of(context).textTheme.headline6?.copyWith(color: textColor),
       ),
       children: [
         Text(
-          altBaslik,
+          subTitle,
           style: Theme.of(context)
               .textTheme
               .labelMedium
@@ -189,7 +193,7 @@ class _MedicineShowTState extends State<MedicineShowT>
       ],
     );
   }
-/*
+
   String pathConverter() {
     String path = "assets/medicine_";
     switch (medicine.type!) {
@@ -212,7 +216,6 @@ class _MedicineShowTState extends State<MedicineShowT>
     path += ".png";
     return path;
   }
-  */
 
   String convertToFirstLaterUpperCase(String string) =>
       string[0].toUpperCase() + string.substring(1);

@@ -7,12 +7,12 @@ import 'package:qr_medicine/constants/my_colors.dart';
 import 'package:qr_medicine/constants/my_decorations.dart';
 import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/developer_settings.dart';
+import 'package:qr_medicine/screens/medicine_show_t.dart';
 
 import '../components/snackbar_show.dart';
 import '../model/medicine.dart';
 import '../viewmodel/user_model.dart';
 import 'const.dart';
-import 'medicine_show.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,7 +52,6 @@ class _HomePageState extends State<HomePage> with MyColors, MyDecorations {
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                       child: TextButton(
                         onPressed: _scan,
-                        //() => goToPage(context, App()),
                         style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
@@ -92,7 +91,7 @@ class _HomePageState extends State<HomePage> with MyColors, MyDecorations {
           medicineId = scanResult.rawContent;
         });
       } else {
-        medicineId = "w43dlsq7tGnirGCjmynD";
+        medicineId = "UraRBqhintFq0ozC96n4";
       }
       if (medicineId.isEmpty) {
         snackBarGoster(context, "QR cant read it");
@@ -121,7 +120,7 @@ class _HomePageState extends State<HomePage> with MyColors, MyDecorations {
       Medicine? medicine = await Provider.of<UserModel>(context, listen: false)
           .getMedicine(medicineId);
       if (medicine != null) {
-        goToPage(context, MedicineShow(medicine: medicine));
+        goToPage(context, MedicineShowT(medicine: medicine));
       } else {
         snackBarGoster(context, "This drug was not found in our database");
       }

@@ -32,6 +32,8 @@ class Medicine {
     }
   }
 
+  String getJustName() => name!.split(" ")[0];
+
   @override
   String toString() {
     return 'Medicine{name: $name, what: $what, type: $type, '
