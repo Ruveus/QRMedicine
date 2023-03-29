@@ -180,7 +180,7 @@ class _MedicineShowTState extends State<MedicineShowT>
       title: Text(
         title,
         style:
-            Theme.of(context).textTheme.headline6?.copyWith(color: textColor),
+            Theme.of(context).textTheme.subtitle1?.copyWith(color: textColor),
       ),
       children: [
         Text(
