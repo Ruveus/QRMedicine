@@ -7,12 +7,12 @@ import 'package:qr_medicine/constants/my_colors.dart';
 import 'package:qr_medicine/constants/my_decorations.dart';
 import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/developer_settings.dart';
-import 'package:qr_medicine/screens/medicine_show_t.dart';
+import 'package:qr_medicine/screens/medicine_show.dart';
 
 import '../components/snackbar_show.dart';
 import '../model/medicine.dart';
 import '../viewmodel/user_model.dart';
-import 'const.dart';
+import '../constants/const.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> with MyColors, MyDecorations {
           child: Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Center(
                     child: Image.asset(
                   "assets/qr_icon.png",
