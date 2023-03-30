@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> with MyColors, MyDecorations {
       Medicine? medicine = await Provider.of<UserModel>(context, listen: false)
           .getMedicine(medicineId);
       if (medicine != null) {
-        goToPage(context, MedicineShowT(medicine: medicine));
+        goToPage(context, MedicineShow(medicine: medicine));
       } else {
         snackBarGoster(context, "This drug was not found in our database");
       }

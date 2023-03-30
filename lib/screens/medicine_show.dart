@@ -5,15 +5,15 @@ import 'package:qr_medicine/constants/my_decorations.dart';
 import 'package:qr_medicine/extensions/context_extension.dart';
 import 'package:qr_medicine/model/medicine.dart';
 
-class MedicineShowT extends StatefulWidget {
+class MedicineShow extends StatefulWidget {
   final Medicine medicine;
-  const MedicineShowT({super.key, required this.medicine});
+  const MedicineShow({super.key, required this.medicine});
 
   @override
-  State<MedicineShowT> createState() => _MedicineShowTState();
+  State<MedicineShow> createState() => _MedicineShowState();
 }
 
-class _MedicineShowTState extends State<MedicineShowT>
+class _MedicineShowState extends State<MedicineShow>
     with MyColors, MyDecorations {
   double sizedBoxHeight = 10;
 
